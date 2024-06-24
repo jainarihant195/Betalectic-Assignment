@@ -13,9 +13,11 @@ function View() {
     }, []);
 
     const handleDelete = (name) => {
-        const updatedPackages = favPackage.filter(pkg => pkg.name !== name);
-        setFavPackage(updatedPackages);
-        localStorage.setItem('favoritePackages', JSON.stringify(updatedPackages));
+        if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+            const updatedPackages = favPackage.filter(pkg => pkg.name !== name);
+            setFavPackage(updatedPackages);
+            localStorage.setItem('favoritePackages', JSON.stringify(updatedPackages));
+        }
     };
 
     const handleEdit = (pkg) => {
