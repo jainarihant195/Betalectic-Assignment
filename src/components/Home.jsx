@@ -109,7 +109,7 @@ function Home() {
                         ))}
                     </div>
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 flex flex-col">
                     <label htmlFor="reason" className="block text-gray-700 text-sm font-bold mb-2">
                         Why is this your fav?
                     </label>
@@ -123,7 +123,7 @@ function Home() {
                 </div>
                 <HeadlessButton
                     onClick={handleSubmit}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="bg-blue-500 hover:bg-blue-700 text-white self-end mt-2 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 
                 >
                     Submit
