@@ -63,7 +63,7 @@ function Home() {
           setReason('');
           setQuery('');
           console.log("Submitted: ",favPack);
-          alert("Submitted: ", favPack)
+
     }
 
 
