@@ -47,6 +47,7 @@ function Home() {
     const handleSubmit = ()=> {
         if(!reason|| !selectedPackage){
             console.log("Please select a valid reason and package");
+            alert("Please select a valid reason and package")
             return;
         }
         const favPack = {
@@ -62,6 +63,7 @@ function Home() {
           setReason('');
           setQuery('');
           console.log("Submitted: ",favPack);
+          alert("Submitted: ", favPack)
     }
 
 
