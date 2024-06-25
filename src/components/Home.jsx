@@ -9,23 +9,19 @@ function Home() {
     const [results, setResults] = useState([]);
     const [reason, setReason] = useState('');
     const [favPackage,setFavPackage] = useState([]);
+    const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
-
         const fetchPackages = async () => {
             if (query) {
                 try {
                     const response = await axios.get(`https://api.npms.io/v2/search?q=${query}`);
                     if (response.data && Array.isArray(response.data.results)) {
-
-                        const packages = response.data.results.map(pkg => pkg.package)
-                        console.log(packages)
-                        // console.log(response.data.results);
+                        const packages = response.data.results.map(pkg => pkg.package);
                         setResults(packages);
                         localStorage.setItem('searchResults', JSON.stringify(packages));
-                    }
-                    else {
-                        console.error("Unexpected error format")
+                    } else {
+                        console.error("Unexpected error format");
                     }
                 } catch (error) {
                     console.error('Error fetching packages:', error);
@@ -37,6 +33,7 @@ function Home() {
 
         fetchPackages();
     }, [query]);
+
     useEffect(() => {
         const storedResults = localStorage.getItem('searchResults');
         if (storedResults) {
@@ -44,40 +41,29 @@ function Home() {
         }
     }, []);
 
-    const handleSubmit = ()=> {
-        if(!reason|| !selectedPackage){
-            console.log("Please select a valid reason and package");
-            alert("Please select a valid reason and package")
+    const handleSubmit = () => {
+        if (!reason || !selectedPackage) {
+            alert("Please select a valid reason and package");
             return;
         }
+
         const favPack = {
             name: selectedPackage,
             reason
-          };
-      
-          const updatedFavoritePackages = [...favPackage, favPack];
-          setFavPackage(updatedFavoritePackages);
-          localStorage.setItem('favoritePackages', JSON.stringify(updatedFavoritePackages));
+        };
 
-          setSelectedPackage(null);
-          setReason('');
-          setQuery('');
-          console.log("Submitted: ",favPack);
+        const updatedFavoritePackages = [...favPackage, favPack];
+        setFavPackage(updatedFavoritePackages);
+        localStorage.setItem('favoritePackages', JSON.stringify(updatedFavoritePackages));
 
-    }
-
+        setSelectedPackage('');
+        setReason('');
+        setQuery('');
+        setSubmitting(false);
+    };
 
     return (
         <>
-            {/* <div className="flex gap-x-3 justify-center py-10 mt-10 border rounded bg-gray-50">
-			<ReuseInput inputRef={sampleref} placeholder="start typing." />
-			<HeadlessButton
-				className="bg-blue-200 border border-blue-400 rounded px-3 py-1"
-				onClick={handleClick}
-			>
-				Get Value
-			</HeadlessButton>
-		</div> */}
             <div className="max-w-md mx-auto p-4">
                 <div className="mb-4">
                     <label htmlFor="search" className="block text-gray-700 text-sm font-bold mb-2">
@@ -123,16 +109,18 @@ function Home() {
                         placeholder="Enter your reason here..."
                     />
                 </div>
-                <HeadlessButton
-                    onClick={handleSubmit}
-                    className="bg-blue-500 hover:bg-blue-700 text-white self-end mt-2 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-
-                >
-                    Submit
-                </HeadlessButton>
+                <div className="flex justify-end">
+                    <HeadlessButton
+                        onClick={handleSubmit}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        disabled={submitting}
+                    >
+                        Submit
+                    </HeadlessButton>
+                </div>
             </div>
         </>
-    )
+    );
 }
 
-export default Home
+export default Home;
