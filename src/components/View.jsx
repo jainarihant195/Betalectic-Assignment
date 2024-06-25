@@ -80,7 +80,7 @@ function View({ favPackage,setFavPackage }) {
         <h1 className="text-center mb-4">Welcome to Favorite NPM packages.</h1>
         {favPackage.length > 0 ? (
           <div className="flex flex-col items-center">
-            <div className="w-full max-w-3xl p-6 bg-white border-2 border-gray-400 rounded-lg shadow-lg">
+            <div className="w-full max-w-3xl p-6 bg-white border-gray-400 rounded-lg shadow-lg">
               <table className="min-w-full bg-white border border-gray-300">
                 <thead>
                   <tr>
