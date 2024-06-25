@@ -87,7 +87,7 @@ function View({ favPackage,setFavPackage }) {
                     <th className="py-2 px-4 border-b border-gray-300">
                       Package Name
                     </th>
-                    <th className="py-2 px-4 border-b border-gray-300">
+                    <th className="py-2 px-4 border-b border-gray-300 border-l">
                       Actions
                     </th>
                   </tr>
@@ -98,7 +98,7 @@ function View({ favPackage,setFavPackage }) {
                       <td className="py-2 px-4 border-b border-gray-300">
                         {pkg.name}
                       </td>
-                      <td className="py-2 px-4 border-b border-gray-300">
+                      <td className="py-2 px-4 border-b border-gray-300 border-l">
                         <div className="flex justify-around">
                           <button
                             className="text-blue-500 hover:text-blue-700"
