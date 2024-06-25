@@ -117,12 +117,12 @@ function Home({ favPackage, setFavPackage }) {
         >
           Submit
         </HeadlessButton>
-        <Link
+        {/* <Link
           to={{ pathname: "/view", state: { favPackage } }}
           className="block text-center mt-4 text-blue-500 hover:text-blue-700"
         >
           View Favorites
-        </Link>
+        </Link> */}
       </div>
     </>
   );
