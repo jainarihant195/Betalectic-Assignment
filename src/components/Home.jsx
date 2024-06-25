@@ -111,12 +111,14 @@ function Home({ favPackage, setFavPackage }) {
             placeholder="Enter your reason here..."
           />
         </div>
+        <div className="flex justify-end">
         <HeadlessButton
           onClick={handleSubmit}
-          className="bg-blue-500 hover:bg-blue-700 text-white self-end mt-2 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
           Submit
         </HeadlessButton>
+          </div>
         {/* <Link
           to={{ pathname: "/view", state: { favPackage } }}
           className="block text-center mt-4 text-blue-500 hover:text-blue-700"
