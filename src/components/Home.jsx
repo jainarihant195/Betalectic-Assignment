@@ -44,7 +44,7 @@ function Home({ favPackage, setFavPackage }) {
     };
 
     try {
-      await axios.post("http://localhost:3000/favorites", favPack);
+      await axios.post("https://backend-npm-1.onrender.com/favorites", favPack);
       console.log("Hi")
       const updatedFavoritePackages = [...favPackage, favPack];
       setFavPackage(updatedFavoritePackages);
