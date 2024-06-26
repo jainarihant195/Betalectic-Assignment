@@ -33,7 +33,7 @@ function Modal({ isOpen, onClose, onConfirm, itemName }) {
 function View({ favPackage, setFavPackage }) {
   const [isEditing, setIsEditing] = useState(null);
   const [editReason, setEditReason] = useState("");
-  const [deleteItem, setDeleteItem] = useState(null);
+  const [deleteItemId, setDeleteItemId] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
@@ -47,17 +47,17 @@ function View({ favPackage, setFavPackage }) {
     };
 
     fetchPackages();
-  }, []);
+  }, [setFavPackage]);
 
-  const handleDelete = (name) => {
-    setDeleteItem(name);
+  const handleDelete = (id) => {
+    setDeleteItemId(id);
     setShowDeleteModal(true);
   };
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`/favorites/${deleteItem}`);
-      const updatedPackages = favPackage.filter((pkg) => pkg.package_name !== deleteItem);
+      await axios.delete(`/favorites/${deleteItemId}`);
+      const updatedPackages = favPackage.filter((pkg) => pkg.id !== deleteItemId);
       setFavPackage(updatedPackages);
       setShowDeleteModal(false);
     } catch (error) {
@@ -70,18 +70,18 @@ function View({ favPackage, setFavPackage }) {
   };
 
   const handleEdit = (pkg) => {
-    setIsEditing(pkg.package_name);
+    setIsEditing(pkg.id);
     setEditReason(pkg.reason);
   };
 
-  const handleSave = async (name) => {
+  const handleSave = async (id) => {
     try {
-      const response = await axios.put(`/favorites/${name}`, {
+      const response = await axios.put(`/favorites/${id}`, {
         reason: editReason,
       });
-
+      console.log(response)
       const updatedPackages = favPackage.map((pkg) =>
-        pkg.package_name === name ? { ...pkg, reason: response.data.reason } : pkg
+        pkg.id === id ? { ...pkg, reason: response.data} : pkg
       );
       setFavPackage(updatedPackages);
       setIsEditing(null);
@@ -112,7 +112,7 @@ function View({ favPackage, setFavPackage }) {
                 </thead>
                 <tbody>
                   {favPackage.map((pkg) => (
-                    <tr key={pkg.package_name}>
+                    <tr key={pkg.id}>
                       <td className="py-2 px-4 border-b border-gray-300">
                         {pkg.package_name}
                       </td>
@@ -160,7 +160,7 @@ function View({ favPackage, setFavPackage }) {
                           </button>
                           <button
                             className="text-red-500 hover:text-red-700"
-                            onClick={() => handleDelete(pkg.package_name)}
+                            onClick={() => handleDelete(pkg.id)}
                           >
                             <svg
                               className="h-5 w-5"
@@ -235,7 +235,7 @@ function View({ favPackage, setFavPackage }) {
           isOpen={showDeleteModal}
           onClose={() => setShowDeleteModal(false)}
           onConfirm={confirmDelete}
-          itemName={deleteItem}
+          itemName={deleteItemId}
         />
       </div>
     </>
